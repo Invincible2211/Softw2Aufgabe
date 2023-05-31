@@ -4,4 +4,9 @@
     {
         public List<Movie> Movies { get; set; }
     }
+
+    public class SaveMovieResponse
+    {
+        public Guid Id { get; set; }
+    }
 }

@@ -22,4 +22,25 @@ namespace Softw2Aufgabe.Api.Endpoints
         }
     }
 
+    public class SaveMovieEndpoint : Endpoint<SaveMovieRequest, SaveMovieResponse>
+    {
+        public override void Configure()
+        {
+            Verbs(Http.POST);
+            Routes("movies");
+            AllowAnonymous();
+        }
+
+        public override async Task HandleAsync(SaveMovieRequest req, CancellationToken ct)
+        {
+            Movie movie = new(req.name);
+            Data.AddMovie(movie);
+            var response = new SaveMovieResponse()
+            {
+                Id = movie.Id
+            };
+            await SendAsync(response, 201, cancellation: ct);
+        }
+    }
+
 }
