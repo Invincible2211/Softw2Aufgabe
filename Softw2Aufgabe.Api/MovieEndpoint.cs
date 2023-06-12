@@ -100,4 +100,24 @@ namespace Softw2Aufgabe.Api.Endpoints
         }
     }
 
+    public class DeletMovieEndpoint : Endpoint<DeleteMovieRequest>
+    {
+        public override void Configure() 
+        {
+            Verbs(Http.DELETE);
+            Routes("movies/id/{Id}");
+            AllowAnonymous();
+        }
+
+        public override async Task HandleAsync(DeleteMovieRequest req, CancellationToken ct)
+        {
+            if (Data.RemoveMovie(req.Id))
+            {
+                await SendNoContentAsync(ct);
+                return;
+            }
+            await SendNotFoundAsync(ct);
+        }
+    }
+
 }

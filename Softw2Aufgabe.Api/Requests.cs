@@ -19,4 +19,9 @@
         public String Name { get; set; }
     }
 
+    public class DeleteMovieRequest
+    {
+        public int Id { get; set; }
+    }
+
 }
