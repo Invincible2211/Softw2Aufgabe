@@ -6,6 +6,11 @@
 
     public class SaveMovieRequest
     {
-        public String name { get; set; }
+        public String Name { get; set; }
+    }
+
+    public class SearchMovieRequest
+    {
+        public int Id { get; set; }
     }
 }
