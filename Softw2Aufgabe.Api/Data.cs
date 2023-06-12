@@ -2,11 +2,7 @@
 {
     public class Data
     {
-        private static readonly List<Movie> movies = new(new Movie[]{
-        new Movie("Test1"),
-        new Movie("Test2"),
-        new Movie("Test3")
-        });
+        private static readonly List<Movie> movies = new();
 
         public static void AddMovie(Movie movie)
         {

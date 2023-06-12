@@ -7,6 +7,11 @@
 
     public class SaveMovieResponse
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
+    }
+
+    public class SearchMovieResponse
+    {
+        public Movie Movie { get; set; }
     }
 }
