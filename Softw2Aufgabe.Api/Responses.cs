@@ -14,4 +14,10 @@
     {
         public Movie Movie { get; set; }
     }
+
+    public class SearchMovieNameResponse
+    {
+        public List<Movie> Movies { get; set; }
+    }
+
 }

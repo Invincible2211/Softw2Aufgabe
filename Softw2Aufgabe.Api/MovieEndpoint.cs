@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
+﻿using FastEndpoints;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Softw2Aufgabe.Api.Requests;
 using Softw2Aufgabe.Api.Responses;
 
@@ -68,6 +69,34 @@ namespace Softw2Aufgabe.Api.Endpoints
                 }
             }
             await SendNotFoundAsync(ct);
+        }
+    }
+
+    public class SearchMovieNameEndpoint : Endpoint<SearchMovieNameRequest, SearchMovieNameResponse>
+    {
+        public override void Configure()
+        {
+            Verbs(Http.GET);
+            Routes("movies/name/{Name}");
+            AllowAnonymous();
+        }
+
+        public override async Task HandleAsync(SearchMovieNameRequest req, CancellationToken ct)
+        {
+            String search = req.Name.ToLower();
+            List<Movie> moviesList = new();
+            foreach (var movie in Data.GetMovies())
+            {
+                if (movie.Name.ToLower().Equals(search))
+                {
+                    moviesList.Add(movie);
+                }
+            }
+            var response = new SearchMovieNameResponse()
+            {
+                Movies = moviesList
+            };
+            await SendAsync(response, 200, cancellation: ct);
         }
     }
 

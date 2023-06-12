@@ -13,4 +13,10 @@
     {
         public int Id { get; set; }
     }
+
+    public class SearchMovieNameRequest
+    {
+        public String Name { get; set; }
+    }
+
 }
