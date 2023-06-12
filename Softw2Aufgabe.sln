@@ -3,7 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Softw2Aufgabe.Api", "Softw2Aufgabe.Api\Softw2Aufgabe.Api.csproj", "{ECC015DE-24DF-4547-8D1D-280981DCF411}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Softw2Aufgabe.Api", "Softw2Aufgabe.Api\Softw2Aufgabe.Api.csproj", "{ECC015DE-24DF-4547-8D1D-280981DCF411}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Projektmappenelemente", "Projektmappenelemente", "{65CC772C-DD8E-4C7E-8A15-0B432EEEFBE2}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yaml = docker-compose.yaml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

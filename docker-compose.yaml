@@ -1,0 +1,7 @@
+version: "3"
+services:
+  api:
+    build:
+      dockerfile: ./Softw2Aufgabe.Api/Dockerfile
+    ports:
+      - 8080:80
