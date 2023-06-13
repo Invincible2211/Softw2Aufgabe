@@ -1,12 +1,12 @@
 global using FastEndpoints;
-using Softw2Aufgabe.Api;
+using Softw2Aufgabe.Api.Services;
 
 var builder = WebApplication.CreateBuilder();
-builder.Services.AddFastEndpoints(); // Das
-Data.AddMovie(new Movie("Test1"));
-Data.AddMovie(new Movie("Test2"));
-Data.AddMovie(new Movie("Test3"));
+builder.Services.AddFastEndpoints();
+
+builder.Services.AddSingleton<IMovieRepository, MovieRepository>();
+
 var app = builder.Build();
-app.UseAuthorization(); // Das
-app.UseFastEndpoints(); // Das
+app.UseAuthorization();
+app.UseFastEndpoints();
 app.Run();
