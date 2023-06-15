@@ -69,8 +69,7 @@ public class SearchMovieEndpoint : Endpoint<SearchMovieRequest, SearchMovieRespo
     }
     public override void Configure()
     {
-        Verbs(Http.GET);
-        Routes("movies/{Id}");
+        Get("movies/{Id}");
         AllowAnonymous();
     }
 
@@ -92,27 +91,24 @@ public class SearchMovieEndpoint : Endpoint<SearchMovieRequest, SearchMovieRespo
 
 public class SearchMovieNameEndpoint : Endpoint<SearchMovieNameRequest, SearchMovieNameResponse>
 {
+    private readonly IMovieRepository _movieRepository;
+
+    public SearchMovieNameEndpoint(IMovieRepository movieRepository)
+    {
+        _movieRepository = movieRepository;
+    }
+
     public override void Configure()
     {
-        Verbs(Http.GET);
-        Routes("movies/name/{Name}");
+        Get("movies/name/{Name}");
         AllowAnonymous();
     }
 
     public override async Task HandleAsync(SearchMovieNameRequest req, CancellationToken ct)
     {
-        string search = req.Name.ToLower();
-        List<Movie> moviesList = new();
-        foreach (var movie in Data.GetMovies())
-        {
-            if (movie.Name.ToLower().Equals(search))
-            {
-                moviesList.Add(movie);
-            }
-        }
         var response = new SearchMovieNameResponse()
         {
-            Movies = moviesList
+            Movies = _movieRepository.GetAll().Where(m => m.Name.ToLower() == req.Name.ToLower()).ToList()
         };
         await SendAsync(response, cancellation: ct);
     }
@@ -120,6 +116,13 @@ public class SearchMovieNameEndpoint : Endpoint<SearchMovieNameRequest, SearchMo
 
 public class DeletMovieEndpoint : Endpoint<DeleteMovieRequest>
 {
+
+    private readonly IMovieRepository _movieRepository;
+
+    public DeletMovieEndpoint(IMovieRepository movieRepository)
+    {
+        _movieRepository = movieRepository;
+    }
     public override void Configure() 
     {
         Verbs(Http.DELETE);
@@ -129,7 +132,7 @@ public class DeletMovieEndpoint : Endpoint<DeleteMovieRequest>
 
     public override async Task HandleAsync(DeleteMovieRequest req, CancellationToken ct)
     {
-        if (Data.RemoveMovie(req.Id))
+        if (_movieRepository.Remove(req.Id))
         {
             await SendNoContentAsync(ct);
             return;
